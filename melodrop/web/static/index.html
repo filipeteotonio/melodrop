@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Melodrop</title>
+<link rel="icon" href="/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/styles.css">
+<script type="module" src="/app.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header class="brand">
+    <img class="logo" src="/logo.svg" alt="" width="40" height="40">
+    <div>
+      <h1>Melodrop</h1>
+      <p class="sub">Paste a YouTube or YouTube Music playlist, album, or song link.</p>
+    </div>
+  </header>
+
+  <div class="card">
+    <form id="form" class="row" autocomplete="off">
+      <input id="url" type="text" placeholder="https://music.youtube.com/playlist?list=..." required>
+      <button id="fetchBtn" class="primary" type="submit">Get tracks</button>
+    </form>
+
+    <div class="opts">
+      <label class="f">Format <select id="format"></select></label>
+      <label class="f" id="bitrateWrap">Audio quality <select id="bitrate"></select></label>
+      <label class="f hidden" id="heightWrap">Video quality <select id="height"></select></label>
+      <label class="f" title="Fixes age-restricted songs and 'confirm you're not a bot' errors">
+        Use browser login <select id="browser"><option value="">None</option></select>
+      </label>
+    </div>
+    <div class="checks">
+      <label id="coverWrap"><input id="embed_cover" type="checkbox" checked> Embed cover art</label>
+      <label id="squareWrap"><input id="square_cover" type="checkbox" checked> Square cover</label>
+      <label><input id="number_files" type="checkbox"> Number files (01 - …)</label>
+    </div>
+    <div id="msg" class="msg" role="status" aria-live="polite"></div>
+  </div>
+
+  <section id="result" class="hidden">
+    <div class="pl-head">
+      <img id="plThumb" alt="">
+      <div class="pl-text">
+        <h2 id="plTitle"></h2>
+        <div class="meta" id="plMeta"></div>
+      </div>
+      <div class="pl-actions">
+        <button id="toggleAll" type="button">Select none</button>
+        <button id="openBtn" type="button" class="hidden">Open folder</button>
+        <button id="retryBtn" type="button" class="hidden">Retry failed</button>
+        <button id="cancelBtn" type="button" class="hidden">Cancel</button>
+        <button id="dlBtn" type="button" class="primary">Download</button>
+      </div>
+    </div>
+    <div id="overall" class="overall hidden">
+      <div class="txt"><span id="overallTxt"></span><span id="overallPct"></span></div>
+      <div class="bar"><div id="overallBar"></div></div>
+    </div>
+    <ul id="tracks" class="tracks"></ul>
+  </section>
+
+  <footer>Melodrop runs on your computer with yt-dlp. Download only content you have the right to.</footer>
+</div>
+</body>
+</html>

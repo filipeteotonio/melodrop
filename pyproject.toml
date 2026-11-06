@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "melodrop"
+dynamic = ["version"]
+description = "Download YouTube and YouTube Music playlists as tagged MP3s from a clean local web UI."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Filipe Teotonio" }]
+requires-python = ">=3.9"
+dependencies = []  # standard library only; yt-dlp and ffmpeg are external tools
+keywords = ["youtube", "youtube-music", "yt-dlp", "mp3", "playlist", "downloader"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Operating System :: MacOS",
+    "Environment :: Web Environment",
+    "Topic :: Multimedia :: Sound/Audio",
+]
+
+[project.urls]
+Homepage = "https://github.com/filipeteotonio/melodrop"
+
+[project.scripts]
+melodrop = "melodrop.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "melodrop.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["melodrop*"]
+
+[tool.setuptools.package-data]
+"melodrop.web" = ["static/*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "SIM", "RUF"]
+ignore = [
+    "UP006", "UP007", "UP035", "UP045",  # keep typing.List/Optional for Python 3.9 readers
+    "RUF001", "RUF003",                  # curly quotes in yt-dlp's real error text are intentional
+]
+
+[tool.coverage.run]
+source = ["melodrop"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
